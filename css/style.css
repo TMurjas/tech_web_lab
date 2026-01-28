@@ -59,6 +59,7 @@ h1, h2, h3, h4 {
     font-size: 24px;
     font-weight: 700;
     color: white;
+    text-decoration:none;
 }
 
 .logo i {
@@ -113,7 +114,7 @@ h1, h2, h3, h4 {
 .hero {
     background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
     color: white;
-    padding: 80px 0;
+    padding: 10px 0;
     text-align: center;
 }
 
@@ -132,8 +133,10 @@ h1, h2, h3, h4 {
 
 .search-box {
     display: flex;
-    max-width: 600px;
-    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 5px;
     animation: fadeInUp 1s ease 0.6s both;
 }
 
@@ -147,9 +150,9 @@ h1, h2, h3, h4 {
 }
 
 .search-error {
-    margin-top: 15px;
+    /* margin-top: 15px; */
     color: var(--accent-color);
-    min-height: 25px;
+    /* min-height: 25px; */
     text-align: center;
 }
 
@@ -201,16 +204,17 @@ h1, h2, h3, h4 {
     flex-wrap: wrap;
     gap: 15px;
     margin: 40px 0 30px;
+
     padding: 20px;
-    background-color: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+
+
 }
 
 .filter-group {
     display: flex;
     flex-direction: column;
-    min-width: 150px;
+    padding: 5px;
+    min-width: 10px;
 }
 
 .filter-group label {
@@ -930,4 +934,56 @@ h1, h2, h3, h4 {
     .hero {
         padding: 60px 0;
     }
+}
+
+#searchInput {
+     width: 500px; 
+}
+
+
+.filtered-info {
+    background-color: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.filtered-info i {
+    color: #3498db;
+}
+
+.no-poster-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
+    color: white;
+}
+
+.no-poster-placeholder i {
+    font-size: 48px;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.no-poster-placeholder span {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Dla obrazków które się nie wczytają */
+.movie-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #f0f0f0; /* Tło gdy obrazek się nie wczyta */
 }

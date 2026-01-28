@@ -32,7 +32,7 @@ bash
 npx live-server --port=8000
 3. Otwórz w przeglądarce
 Przejdź do: http://localhost:8000
-
+```
 ##Wymagania
 Przeglądarka internetowa
 
@@ -66,4 +66,5 @@ Rozwiązanie: Uruchom przez serwer lokalny, nie bezpośrednio z pliku
 
 ##Licencja
 MIT
+
 

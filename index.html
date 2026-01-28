@@ -15,8 +15,10 @@
         <div class="container">
             <nav class="nav">
                 <div class="logo">
-                    <i class="fas fa-film"></i>
-                    <span>FilmSearch</span>
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-film"></i>
+                        <span>FilmSearch</span>
+                    </a>
                 </div>
                 <ul class="nav-links">
                     <li><a href="index.html" class="active">Strona główna</a></li>
@@ -36,34 +38,48 @@
                 <h1 class="hero-title">Znajdź swój następny ulubiony film</h1>
                 <p class="hero-subtitle">Wyszukuj filmy, seriale i gry wideo z całego świata</p>
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Wpisz tytuł filmu...">
-                    <button id="searchBtn" class="btn btn-primary">
-                        <i class="fas fa-search"></i> Szukaj
-                    </button>
+                    <div class="filter-group">
+                        <label for="typeFilter">Tytuł:</label>
+                        <input type="text" id="searchInput" placeholder="Wpisz tytuł filmu...">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="typeFilter">Typ:</label>
+                        <select id="typeFilter">
+                            <option value="">Wszystkie</option>
+                            <option value="movie">Film</option>
+                            <option value="series">Serial</option>
+                            <option value="game">Gra</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="yearFilter">Rok:</label>
+                        <input type="number" id="yearFilter" min="1900" max="2024" placeholder="np. 2020">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="typeFilter"> &nbsp;</label>
+                        <button id="searchBtn" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Szukaj
+                        </button>
+                    </div>
+
+                    <div class="filter-group">
+
+                        <label for="typeFilter"> &nbsp;</label>
+                        <button id="clearFilters" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Wyczyść filtry
+                        </button>
+                    </div>
                 </div>
-                <div class="search-error" id="searchError"></div>
-            </div>
+            </div>  
+            <div class="search-error" id="searchError" value="none"> </div>
         </section>
+            
 
         <section class="container">
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="yearFilter">Rok:</label>
-                    <input type="number" id="yearFilter" min="1900" max="2024" placeholder="np. 2020">
-                </div>
-                <div class="filter-group">
-                    <label for="typeFilter">Typ:</label>
-                    <select id="typeFilter">
-                        <option value="">Wszystkie</option>
-                        <option value="movie">Film</option>
-                        <option value="series">Serial</option>
-                        <option value="game">Gra</option>
-                    </select>
-                </div>
-                <button id="clearFilters" class="btn btn-secondary">
-                    <i class="fas fa-times"></i> Wyczyść filtry
-                </button>
-            </div>
+            
 
             <div class="results-info">
                 <h2 id="resultsTitle">Wyniki wyszukiwania</h2>

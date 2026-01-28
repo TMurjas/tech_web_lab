@@ -11,28 +11,58 @@ FilmSearch to responsywna aplikacja webowa umożliwiająca wyszukiwanie filmów,
 - Formularz kontaktowy z walidacją
 - 3 podstrony: główna, o nas, kontakt
 
-## Live Demo
-Aplikacja dostępna online: https://tmurjas.github.io/tech_web_lab/
+## Demo
+https://tmurjas.github.io/tech_web_lab/
 
-## Szybkie uruchomienie
+## Instalacja
 
-### Wersja online (zalecana)
-1. Otwórz https://tmurjas.github.io/tech_web_lab/
-
-### Wersja lokalna
-
-#### Opcja A: Prosty serwer HTTP
+### 1. Pobierz kod
 ```bash
-# 1. Pobierz pliki projektu
-git clone https://tmurjas.github.io/tech_web_lab/
+git clone https://github.com/TMurjas/tech_web_lab.git
 cd filmsearch
-
-# 2. Uruchom serwer lokalny
-# Python 3:
+2. Uruchom lokalny serwer
+Python:
+bash
 python -m http.server 8000
-
-# Lub z PHP:
+PHP:
+bash
 php -S localhost:8000
+Node.js z live-server:
+bash
+npx live-server --port=8000
+3. Otwórz w przeglądarce
+Przejdź do: http://localhost:8000
 
-# 3. Otwórz w przeglądarce
-# http://localhost:8000
+Wymagania
+Przeglądarka internetowa
+
+Python 3.x, PHP lub Node.js (do lokalnego serwera)
+
+Połączenie internetowe (dla API)
+
+Struktura plików
+text
+filmsearch/
+├── index.html         # Strona główna
+├── about.html         # O nas
+├── contact.html       # Kontakt
+├── css/style.css      # Style
+├── js/api.js          # Integracja API
+├── js/app.js          # Logika aplikacji
+└── js/contact.js      # Walidacja formularza
+Konfiguracja API
+Domyślnie używa darmowego klucza. Aby użyć własnego:
+
+Zarejestruj się na http://www.omdbapi.com/apikey.aspx
+
+Zaktualizuj API_KEY w pliku js/api.js
+
+Rozwiązywanie problemów
+Problem: API nie działa
+Rozwiązanie: Sprawdź klucz API w js/api.js
+
+Problem: Strona nie ładuje się
+Rozwiązanie: Uruchom przez serwer lokalny, nie bezpośrednio z pliku
+
+Licencja
+MIT

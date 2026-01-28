@@ -45,6 +45,8 @@ class MovieAPI {
         }
     }
 
+
+
     // Pobieranie szczegółów filmu
     async getMovieDetails(id) {
         const url = `${API_URL}&i=${id}&plot=full`;
@@ -85,5 +87,4 @@ class MovieAPI {
 }
 
 // Eksportuj instancję API
-
 const movieAPI = new MovieAPI();

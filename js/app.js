@@ -123,7 +123,69 @@ class MovieApp {
         }
     }
 
-    displayMovies(movies) {
+    // displayMovies(movies) {
+    //     this.clearMovies();
+        
+    //     if (!movies || movies.length === 0) {
+    //         this.showNoResults();
+    //         return;
+    //     }
+
+    //     movies.forEach(movie => {
+    //         const movieCard = this.createMovieCard(movie);
+    //         this.moviesContainer.appendChild(movieCard);
+    //     });
+
+    //     // Animacja pojawiania się kart
+    //     const movieCards = this.moviesContainer.querySelectorAll('.movie-card');
+    //     movieCards.forEach((card, index) => {
+    //         card.style.animationDelay = `${index * 0.1}s`;
+    //     });
+    // }
+
+
+    // displayMovies(movies) {
+    //     this.clearMovies();
+        
+    //     if (!movies || movies.length === 0) {
+    //         this.showNoResults();
+    //         return;
+    //     }
+
+    //     // FILTROWANIE: Tylko filmy z obrazkami
+    //     const moviesWithPosters = movies.filter(movie => 
+    //         movie.Poster && movie.Poster !== 'N/A'
+    //     );
+
+    //     if (moviesWithPosters.length === 0) {
+    //         this.showNoResultsWithMessage('Brak filmów z dostępnymi obrazkami');
+    //         return;
+    //     }
+
+    //     moviesWithPosters.forEach(movie => {
+    //         const movieCard = this.createMovieCard(movie);
+    //         this.moviesContainer.appendChild(movieCard);
+    //     });
+
+    //     // Dodaj informację o odfiltrowanych filmach
+    //     this.showFilteredInfo(movies.length, moviesWithPosters.length);
+    // }
+
+    // // Dodaj nową funkcję do pokazywania informacji
+    // showFilteredInfo(total, withPosters) {
+    //     if (total > withPosters) {
+    //         const filteredCount = total - withPosters;
+    //         const infoElement = document.createElement('div');
+    //         infoElement.className = 'filtered-info';
+    //         infoElement.innerHTML = `
+    //             <i class="fas fa-info-circle"></i>
+    //             <span>Pominięto ${filteredCount} filmów bez dostępnych obrazków</span>
+    //         `;
+    //         this.moviesContainer.parentNode.insertBefore(infoElement, this.moviesContainer);
+    //     }
+    // }
+
+    async displayMovies(movies) {
         this.clearMovies();
         
         if (!movies || movies.length === 0) {
@@ -131,27 +193,98 @@ class MovieApp {
             return;
         }
 
-        movies.forEach(movie => {
+        // Sprawdź które obrazki działają
+        const validMovies = [];
+        
+        for (const movie of movies) {
+            if (movie.Poster && movie.Poster !== 'N/A') {
+                const isValid = await this.checkImage(movie.Poster);
+                if (isValid) {
+                    validMovies.push(movie);
+                } else {
+                    // Jeśli obrazek nie działa, ale chcemy pokazać film
+                    movie.Poster = null; // Oznacz że nie ma obrazka
+                    validMovies.push(movie);
+                }
+            } else {
+                // Film bez obrazka z API
+                movie.Poster = null;
+                validMovies.push(movie);
+            }
+        }
+
+        if (validMovies.length === 0) {
+            this.showNoResults();
+            return;
+        }
+
+        // Renderuj wszystkie filmy (też te bez obrazków)
+        validMovies.forEach(movie => {
             const movieCard = this.createMovieCard(movie);
             this.moviesContainer.appendChild(movieCard);
         });
-
-        // Animacja pojawiania się kart
-        const movieCards = this.moviesContainer.querySelectorAll('.movie-card');
-        movieCards.forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
-        });
     }
+
+
+    async checkImage(url) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = url;
+         });
+    }
+
+    // createMovieCard(movie) {
+    //     const card = document.createElement('div');
+    //     card.className = 'movie-card';
+        
+    //     const posterUrl = movie.Poster !== 'N/A' ? movie.Poster : '';
+        
+    //     card.innerHTML = `
+    //         <div class="movie-poster">
+    //             ${posterUrl ? `<img src="${posterUrl}" alt="${movie.Title}">` : `<i class="fas fa-film"></i>`}
+    //         </div>
+    //         <div class="movie-info">
+    //             <h3 class="movie-title">${movie.Title}</h3>
+    //             <p class="movie-year">${movie.Year}</p>
+    //             <span class="movie-type">${movie.Type}</span>
+    //         </div>
+    //     `;
+        
+    //     // Kliknięcie na kartę otwiera modal ze szczegółami
+    //     card.addEventListener('click', () => this.showMovieDetails(movie.imdbID));
+        
+    //     return card;
+    // }
+
+
+
+
 
     createMovieCard(movie) {
         const card = document.createElement('div');
         card.className = 'movie-card';
         
-        const posterUrl = movie.Poster !== 'N/A' ? movie.Poster : '';
+        // SPRAWDZ CZY JEST OBRAZEK
+        const hasValidPoster = movie.Poster && 
+                            movie.Poster !== 'N/A' && 
+                            !movie.Poster.includes('imdb.com/images/nopicture');
+        
+        const posterUrl = hasValidPoster ? movie.Poster : '';
         
         card.innerHTML = `
             <div class="movie-poster">
-                ${posterUrl ? `<img src="${posterUrl}" alt="${movie.Title}">` : `<i class="fas fa-film"></i>`}
+                ${hasValidPoster 
+                    ? `<img src="${posterUrl}" 
+                        alt="${movie.Title}" 
+                        loading="lazy"
+                        onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJQb3BwaW5zIiBmb250LXNpemU9IjE2IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIGltYWdlPC90ZXh0Pjwvc3ZnPg=='">`
+                    : `<div class="no-poster-placeholder">
+                        <i class="fas fa-film"></i>
+                        <span>Brak obrazka</span>
+                    </div>`
+                }
             </div>
             <div class="movie-info">
                 <h3 class="movie-title">${movie.Title}</h3>
@@ -160,11 +293,11 @@ class MovieApp {
             </div>
         `;
         
-        // Kliknięcie na kartę otwiera modal ze szczegółami
         card.addEventListener('click', () => this.showMovieDetails(movie.imdbID));
         
         return card;
     }
+
 
     async showMovieDetails(movieId) {
         this.showLoading();

@@ -41,7 +41,7 @@ Python 3.x, PHP lub Node.js (do lokalnego serwera)
 Połączenie internetowe (dla API)
 
 ## Struktura plików
-
+```
 tech_web_lab/
 ├── index.html         # Strona główna
 ├── about.html         # O nas
@@ -50,7 +50,8 @@ tech_web_lab/
 ├── js/api.js          # Integracja API
 ├── js/app.js          # Logika aplikacji
 └── js/contact.js      # Walidacja formularza
-Konfiguracja API
+```
+## Konfiguracja API
 Domyślnie używa darmowego klucza. Aby użyć własnego:
 
 Zarejestruj się na http://www.omdbapi.com/apikey.aspx
@@ -66,6 +67,7 @@ Rozwiązanie: Uruchom przez serwer lokalny, nie bezpośrednio z pliku
 
 ## Licencja
 MIT
+
 
 
 

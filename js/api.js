@@ -85,4 +85,5 @@ class MovieAPI {
 }
 
 // Eksportuj instancję API
+
 const movieAPI = new MovieAPI();
